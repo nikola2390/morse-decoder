@@ -38,7 +38,13 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+  const space = '**********';
+  const letters = expr.match(/.{10}/g);
+  const keys = Object.keys(MORSE_TABLE).map(x => x.replace(/[.]/g, '10').replace(/[-]/g, '11').padStart(10, 0));
+  const values = Object.values(MORSE_TABLE);
+  const decodeMorseTable = {};
+  keys.forEach((val, i) => decodeMorseTable[val] = values[i]);
+  return letters.map(val => (val === space ? val = ' ': val = decodeMorseTable[val])).join('');
 }
 
 module.exports = {
